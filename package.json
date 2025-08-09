@@ -1,6 +1,6 @@
 {
   "name": "nblocc",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "description": "Node.js implementation of blocc - CLI tool that blocks Claude Code hooks by returning exit code 2 when commands fail",
   "type": "module",
   "main": "./dist/index.js",
@@ -15,9 +15,16 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "lint": "oxlint src/",
+    "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json}'",
+    "format:check": "prettier --check 'src/**/*.{ts,tsx,js,jsx,json}'",
     "typecheck": "tsc --noEmit"
   },
-  "keywords": ["cli", "claude", "hooks", "blocc"],
+  "keywords": [
+    "cli",
+    "claude",
+    "hooks",
+    "blocc"
+  ],
   "author": "",
   "license": "MIT",
   "files": [
@@ -29,6 +36,7 @@
     "@types/node": "^24.2.1",
     "@vitest/ui": "^3.2.4",
     "oxlint": "^1.11.1",
+    "prettier": "^3.6.2",
     "tsx": "^4.20.3",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"

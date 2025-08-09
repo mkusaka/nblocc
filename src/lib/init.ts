@@ -5,12 +5,12 @@ import type { Settings } from '../types/index.js';
 
 export async function initSettings(
   commands: string[] = [],
-  message = ''
+  message = '',
 ): Promise<void> {
   // Use defaults if not provided
   const defaultCommands = ['npx tsc --noEmit'];
   const defaultMessage = 'Hook execution completed with errors';
-  
+
   if (commands.length === 0) {
     commands = defaultCommands;
   }
@@ -20,7 +20,7 @@ export async function initSettings(
 
   const currentDir = process.cwd();
   const claudeDir = join(currentDir, '.claude');
-  
+
   // Create .claude directory if it doesn't exist
   try {
     await mkdir(claudeDir, { recursive: true });
@@ -29,7 +29,7 @@ export async function initSettings(
   }
 
   const settingsPath = join(claudeDir, 'settings.local.json');
-  
+
   // Check if file already exists
   try {
     await stat(settingsPath);
@@ -41,7 +41,7 @@ export async function initSettings(
   }
 
   // Build command string
-  const quotedCommands = commands.map(cmd => `"${cmd}"`);
+  const quotedCommands = commands.map((cmd) => `"${cmd}"`);
   const commandStr = `nblocc --message "${message}" ${quotedCommands.join(' ')}`;
 
   // Create settings structure
@@ -53,12 +53,12 @@ export async function initSettings(
           hooks: [
             {
               type: 'command',
-              command: commandStr
-            }
-          ]
-        }
-      ]
-    }
+              command: commandStr,
+            },
+          ],
+        },
+      ],
+    },
   };
 
   // Write the file

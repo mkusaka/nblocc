@@ -34,7 +34,9 @@ describe('Executor', () => {
     });
 
     it('should capture stdout and stderr', async () => {
-      const commands = ['echo "stdout test" && >&2 echo "stderr test" && exit 1'];
+      const commands = [
+        'echo "stdout test" && >&2 echo "stderr test" && exit 1',
+      ];
       const results = await executor.executeSequential(commands);
       expect(results).toHaveLength(1);
       expect(results[0].stdout).toContain('stdout test');
@@ -53,16 +55,16 @@ describe('Executor', () => {
       const commands = ['exit 1', 'exit 3'];
       const results = await executor.executeParallel(commands);
       expect(results).toHaveLength(2);
-      const exitCodes = results.map(r => r.exitCode).sort();
+      const exitCodes = results.map((r) => r.exitCode).sort();
       expect(exitCodes).toEqual([1, 3]);
     });
 
     it('should handle exit code 2 specially', async () => {
       const commands = ['exit 1', 'exit 2', 'exit 3'];
       const results = await executor.executeParallel(commands);
-      
+
       // Should include exit code 2 result
-      const hasExitCode2 = results.some(r => r.exitCode === 2);
+      const hasExitCode2 = results.some((r) => r.exitCode === 2);
       expect(hasExitCode2).toBe(true);
     });
 
@@ -70,10 +72,10 @@ describe('Executor', () => {
       // Test that commands are executed concurrently
       const results = await executor.executeParallel([
         'echo "first"',
-        'echo "second"', 
-        'echo "third"'
+        'echo "second"',
+        'echo "third"',
       ]);
-      
+
       // All commands should succeed
       expect(results).toEqual([]);
     });

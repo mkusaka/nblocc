@@ -19,15 +19,15 @@ describe('outputError', () => {
         command: 'test command',
         exitCode: 1,
         stderr: 'error',
-        stdout: 'output'
-      }
+        stdout: 'output',
+      },
     ];
 
     outputError('Custom error message', results);
 
     expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
     const output = JSON.parse(consoleErrorSpy.mock.calls[0][0]);
-    
+
     expect(output.message).toBe('Custom error message');
     expect(output.results).toEqual(results);
   });
@@ -38,21 +38,21 @@ describe('outputError', () => {
         command: 'cmd1',
         exitCode: 1,
         stderr: 'err1',
-        stdout: 'out1'
+        stdout: 'out1',
       },
       {
         command: 'cmd2',
         exitCode: 2,
         stderr: 'err2',
-        stdout: 'out2'
-      }
+        stdout: 'out2',
+      },
     ];
 
     outputError(undefined, results);
 
     expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
     const output = JSON.parse(consoleErrorSpy.mock.calls[0][0]);
-    
+
     expect(output.message).toBe('2 command(s) failed');
     expect(output.results).toEqual(results);
   });
@@ -63,14 +63,14 @@ describe('outputError', () => {
         command: 'test',
         exitCode: 1,
         stderr: 'error',
-        stdout: 'output'
-      }
+        stdout: 'output',
+      },
     ];
 
     outputError('Test', results);
 
     const outputString = consoleErrorSpy.mock.calls[0][0];
-    
+
     // Check that it's properly formatted JSON with indentation
     expect(outputString).toContain('{\n');
     expect(outputString).toContain('  "message"');

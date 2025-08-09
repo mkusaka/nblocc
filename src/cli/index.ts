@@ -17,7 +17,9 @@ const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
 
 program
   .name('nblocc')
-  .description('Node.js implementation of blocc - CLI tool that blocks Claude Code hooks by returning exit code 2 when commands fail')
+  .description(
+    'Node.js implementation of blocc - CLI tool that blocks Claude Code hooks by returning exit code 2 when commands fail',
+  )
   .version(packageJson.version)
   .option('-p, --parallel', 'Execute commands in parallel')
   .option('-m, --message <message>', 'Custom error message')
@@ -42,17 +44,17 @@ program
     }
 
     const executor = new Executor();
-    
+
     try {
       const results = options.parallel
         ? await executor.executeParallel(commands)
         : await executor.executeSequential(commands);
-      
+
       if (results.length > 0) {
         outputError(options.message, results);
         process.exit(2);
       }
-      
+
       // All commands succeeded
       process.exit(0);
     } catch (error) {
